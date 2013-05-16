@@ -4,4 +4,7 @@
 <?php echo render('signin/_form'); ?>
 
 
-<p><?php echo Html::anchor('signin', 'Back'); ?></p>
+<p><?php echo Html::anchor('signin', 'Back'); ?>
+    
+   <?php echo Html::anchor('login/create', 'Login'); ?></p>
+</p>

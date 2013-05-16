@@ -5,3 +5,4 @@
 <p>
 	<?php echo Html::anchor('signin/view/'.$signin->id, 'View'); ?> |
 	<?php echo Html::anchor('signin', 'Back'); ?></p>
+	
