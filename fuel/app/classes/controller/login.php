@@ -1,6 +1,5 @@
 <?php
 class Controller_Login extends Controller_Template{
-
 	public function action_index()
 	{
 		$data['logins'] = Model_Login::find('all');
