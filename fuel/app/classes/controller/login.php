@@ -1,131 +1,111 @@
-<?php 
-class Controller_Login extends Controller_Template{
-	public function action_index()
-	{
-		$data['logins'] = Model_Login::find('all');
-		$this->template->title = "Logins";
-		$this->template->content = View::forge('login/index', $data);
-
-	}
-
-	public function action_view($id = null)
-	{
-		is_null($id) and Response::redirect('login');
-
-		if ( ! $data['login'] = Model_Login::find($id))
-		{
-			Session::set_flash('error', 'Could not find login #'.$id);
-			Response::redirect('login');
-		}
-
-		$this->template->title = "Login";
-		$this->template->content = View::forge('login/view', $data);
-
-	}
-
-	public function action_create()
-	{
-		if (Input::method() == 'POST')
-		{
-			$val = Model_Login::validate('create');
+<?php
+//allow sessions to be passed so we can see if the user is logged in
+session_start();
+ob_start();
+ 
+//connect to the database so we can check, edit, or insert data to our users table
+$con = mysql_connect('localhost:8888', 'root', 'root') or die(mysql_error());
+$db = mysql_select_db('loginTut', $con) or die(mysql_error());
+ 
+//include out functions file giving us access to the protect() function made earlier
+include "functions.php";
+ 
+?>
+<html>
+	<head>
+		<title>Geo Login</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+	</head>
+	<body>
+		<?php
+ 			
+		//If the user has submitted the form
+		if (!isset($_POST['Submit']) || ($_POST['Submit'] != 'Register')){
+			//protect the posted value then store them to variables
 			
-			if ($val->run())
-			{
-				$login = Model_Login::forge(array(
-					'username' => Input::post('username'),
-					'password' => Input::post('password'),
-				));
-
-				if ($login and $login->save())
-				{
-					Session::set_flash('success', 'Added login #'.$login->id.'.');
-
-					Response::redirect('login');
+				$username=isset($_POST['username']);
+				$password=isset($_POST['password']);
+			
+			
+			//Check if the username or password boxes were not filled in
+			if(!$username || !$password){
+				//if not display an error message
+				echo "<center>You need to fill in a <b>Username</b> and a <b>Password</b>!</center>";
+			}else{
+				//if the were continue checking
+ 
+				//select all rows from the table where the username matches the one entered by the user
+				$res = mysql_query("SELECT * FROM `users` WHERE `username` = '".$username."'");
+				$num = mysql_num_rows($res);
+ 
+				//check if there was not a match
+				if($num == 0){
+					//if not display an error message
+					echo "<center>The <b>Username</b> you supplied does not exist!</center>";
+				}else{
+					//if there was a match continue checking
+ 
+					//select all rows where the username and password match the ones submitted by the user
+					$res = mysql_query("SELECT * FROM `users` WHERE `username` = '".$username."' AND `password` = '".$password."'");
+					$num = mysql_num_rows($res);
+ 
+					//check if there was not a match
+					if($num == 0){
+						//if not display error message
+						echo "<center>The <b>Password</b> you supplied does not match the one for that username!</center>";
+					}else{
+						//if there was continue checking
+ 
+						//split all fields fom the correct row into an associative array
+						$row = mysql_fetch_assoc($res);
+ 
+						//check to see if the user has not activated their account yet
+						if($row['active'] != 1){
+							//if not display error message
+							echo "<center>You have not yet <b>Activated</b> your account!</center>";
+						}else{
+							//if they have log them in
+ 
+							//set the login session storing there id - we use this to see if they are logged in or not
+							$_SESSION['uid'] = $row['id'];
+							//show message
+							echo "<center>You have successfully logged in!</center>";
+ 
+							//update the online field to 50 seconds into the future
+							$time = date('U')+50;
+							mysql_query("UPDATE `users` SET `online` = '".$time."' WHERE `id` = '".$_SESSION['uid']."'");
+ 
+							//redirect them to the usersonline page
+							header('Location: usersOnline.php');
+						}
+					}
 				}
-
-				else
-				{
-					Session::set_flash('error', 'Could not save login.');
-				}
-			}
-			else
-			{
-				Session::set_flash('error', $val->error());
 			}
 		}
-
-		$this->template->title = "Logins";
-		$this->template->content = View::forge('login/create');
-
-	}
-
-	public function action_edit($id = null)
-	{
-		is_null($id) and Response::redirect('login');
-
-		if ( ! $login = Model_Login::find($id))
-		{
-			Session::set_flash('error', 'Could not find login #'.$id);
-			Response::redirect('login');
-		}
-
-		$val = Model_Login::validate('edit');
-
-		if ($val->run())
-		{
-			$login->username = Input::post('username');
-			$login->password = Input::post('password');
-
-			if ($login->save())
-			{
-				Session::set_flash('success', 'Updated login #' . $id);
-
-				Response::redirect('login');
-			}
-
-			else
-			{
-				Session::set_flash('error', 'Could not update login #' . $id);
-			}
-		}
-
-		else
-		{
-			if (Input::method() == 'POST')
-			{
-				$login->username = $val->validated('username');
-				$login->password = $val->validated('password');
-
-				Session::set_flash('error', $val->error());
-			}
-
-			$this->template->set_global('login', $login, false);
-		}
-
-		$this->template->title = "Logins";
-		$this->template->content = View::forge('login/edit');
-
-	}
-
-	public function action_delete($id = null)
-	{
-		is_null($id) and Response::redirect('login');
-
-		if ($login = Model_Login::find($id))
-		{
-			$login->delete();
-
-			Session::set_flash('success', 'Deleted login #'.$id);
-		}
-
-		else
-		{
-			Session::set_flash('error', 'Could not delete login #'.$id);
-		}
-
-		Response::redirect('login');
-
-	}
-
-
-}
+ 
+		?>
+		<form action="login.php" method="post">
+			<div id="border">
+				<table cellpadding="2" cellspacing="0" border="0">
+					<tr>
+						<td>Username:</td>
+						<td><input type="text" name="username" /></td>
+					</tr>
+					<tr>
+						<td>Password:</td>
+						<td><input type="password" name="password" /></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center"><input type="submit" name="submit" value="Login" /></td>
+					</tr>
+					<tr>
+						<td align="center" colspan="2"><a href="register.php">Register</a> | <a href="forgot.php">Forgot Pass</a></td>
+					</tr>
+				</table>
+			</div>
+		</form>
+	</body>
+</html>
+<?
+ob_end_flush();
+?>

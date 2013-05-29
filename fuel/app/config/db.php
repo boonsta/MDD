@@ -14,7 +14,7 @@ return array(
 'port' => '8889',
 'username' => 'root',
 'password' => 'root',
-'database' => 'geo',
+'database' => 'loginTut',
 'persistent' => false,
 ),
 'identifier' => '`',
