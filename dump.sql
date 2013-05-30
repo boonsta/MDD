@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.5.25)
 # Database: loginTut
-# Generation Time: 2013-05-30 07:43:28 +0000
+# Generation Time: 2013-05-30 23:36:07 +0000
 # ************************************************************
 
 
@@ -27,6 +27,7 @@ DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fullname` varchar(100) NOT NULL,
   `username` varchar(32) NOT NULL,
   `password` varchar(32) NOT NULL,
   `online` int(20) NOT NULL DEFAULT '0',
@@ -39,10 +40,11 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 
-INSERT INTO `users` (`id`, `username`, `password`, `online`, `email`, `active`, `rtime`)
+INSERT INTO `users` (`id`, `fullname`, `username`, `password`, `online`, `email`, `active`, `rtime`)
 VALUES
-	(5,'boonsta','password',0,'boonsta@fullsail.edu',0,1369552999),
-	(6,'ntboon','pass123',0,'ntboon@me.com',0,1369553927);
+	(5,'','boonsta','password',0,'boonsta@fullsail.edu',0,1369552999),
+	(6,'','ntboon','pass123',0,'ntboon@me.com',0,1369553927),
+	(7,'','ironman','password',0,'nikki.boon@yahoo.com',0,1369901968);
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
