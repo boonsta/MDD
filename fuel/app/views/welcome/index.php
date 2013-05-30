@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>FuelPHP Framework</title>
+	<title>Geo | Where Am I!?</title>
 	<!-- <?php echo Asset::css('bootstrap.css'); ?> -->
 	<link rel="stylesheet" type="text/css" href="assets/css/flat-ui.css">
 	<style>
@@ -15,6 +15,9 @@
 		a:hover{
 			color: #af4cf0;
 		}
+		.button{
+		    padding-bottom: 20px;
+		}
 
 	</style>
 </head>
@@ -26,16 +29,15 @@
 		</div>
 	<hr/>
 	</div>
-	 
+	
 	<div class="container">
 	      
 		<div class="hero-unit">
 			
 			<h1>Welcome!</h1>
-			<p>Click the link below to get your geolocation</p>
-			<p><a class="btn btn-primary btn-large" href="geolocate.php">Geolocation</a></p>
-			<p><a class="btn btn-primary btn-large" href="register.php">Sign up</a></p>
-			<p><a class="btn btn-primary btn-large" href="login.php">Login</a></p>
+			<p class="button"><a class="btn btn-primary btn-large" href="geolocate.php">Geolocation</a></p>
+			<p class="button"><a class="btn btn-primary btn-large" href="register.php">Sign up</a></p>
+			<p class="button"><a class="btn btn-primary btn-large" href="login.php">Login</a></p>
 		</div>
 		<div class="row">	
 			<div class="span4">

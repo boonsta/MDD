@@ -10,16 +10,11 @@ $db = mysql_select_db('loginTut', $con) or die(mysql_error());
 include "functions.php";
  
 ?>
-<html>
-	<head>
-		<title>Geo Login</title>
-		<link rel="stylesheet" type="text/css" href="style.css" />
-	</head>
-	<body>
+
 		<?php
  
 		//if the login session does not exist therefore meaning the user is not logged in
-		if(strcmp($_SESSION['uid'],”") == 0){
+		if(strcmp($_SESSION['uid'],'') == 0){
 			//display and error message
 			echo "<center>You need to be logged in to user this feature!</center>";
 		}else{
@@ -27,7 +22,8 @@ include "functions.php";
  
 			//this is out update script which should be used in each page to update the users online time
 			$time = date('U')+50;
-			$update = mysql_query("UPDATE `users` SET `online` = '".$time."' WHERE `id` = '".$_SESSION['uid']."'");
+			$update = mysql_query("UPDATE `users` SET `online` = '".$time."' WHERE `id` = '". $_SESSION['uid'] ."'");
+			
 			?>
 			<div id="border">
 				<table cellpadding="2" cellspacing="0" border="0" width="100%">
@@ -59,5 +55,4 @@ include "functions.php";
 		}
  
 		?>
-	</body>
-</html>
+

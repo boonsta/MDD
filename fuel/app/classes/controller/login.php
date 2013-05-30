@@ -10,12 +10,11 @@ $db = mysql_select_db('loginTut', $con) or die(mysql_error());
 //include out functions file giving us access to the protect() function made earlier
 include "functions.php";
 
- 
 ?>
 <html>
 	<head>
 		<title>Geo Login</title>
-		<link rel="stylesheet" type="text/css" href="style.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/flat-ui.css" />
 	</head>
 	<body>
 		<?php
