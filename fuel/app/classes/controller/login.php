@@ -9,6 +9,7 @@ $db = mysql_select_db('loginTut', $con) or die(mysql_error());
  
 //include out functions file giving us access to the protect() function made earlier
 include "functions.php";
+
  
 ?>
 <html>

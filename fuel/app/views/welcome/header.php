@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title>FuelPHP Framework</title>
-    <?php echo Asset::css('bootstrap.css'); ?>
-    <link rel="stylesheet" type="text/css" href="Flat-UI/css/flat-ui.css">
+    <!-- <?php echo Asset::css('bootstrap.css'); ?> -->
+    <link rel="stylesheet" type="text/css" href="assets/css/flat-ui.css">
     <style>
         #logo{
         width: 100%;
@@ -21,7 +21,7 @@
 <body>
     <div id="header">
         <div class="row">
-            <div id="logo"><img src="geo-logo.jpg"></div>
+            <div id="logo"><img src="assets/img/geo-logo.jpg"></div>
             
         </div>
     <hr/>
