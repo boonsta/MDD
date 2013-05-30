@@ -1,7 +1,6 @@
 #SQL Dump
 
-To download the database. You can take the "dump.sql" file and import into Sequel Pro if you are using that. Click on 'File' then 'Import' locate the 'dump.sql' and it should show in your database 
-To download through terminal put in the following: $ mysql -u root -p LoginTut < dump.sql
+To download the database. You can take the "dump.sql" file and import into Sequel Pro if you are using that. Click on 'File' then 'Import' locate the 'dump.sql' and it should show in your database. To download through terminal put in the following: $ mysql -u root -p LoginTut < dump.sql
 
 #FuelPHP
 
