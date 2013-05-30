@@ -22,6 +22,7 @@
 	</style>
 </head>
 <body>
+
 	<div id="header">
 		<div class="row">
 			<div id="logo"><img src="assets/img/geo-logo.jpg"></div>

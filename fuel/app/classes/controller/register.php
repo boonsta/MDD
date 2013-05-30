@@ -8,7 +8,9 @@ $db = mysql_select_db('loginTut', $con) or die(mysql_error());
  
 //include out functions file giving us access to the protect() function
 include "functions.php";
- 
+
+
+
 ?>
 <html>
 	<head>
@@ -22,13 +24,14 @@ include "functions.php";
 		if(isset($_POST['submit'])){
  
 			//protect and then add the posted data to variables
+			$fullname = protect($_POST['fullname']);
 			$username = protect($_POST['username']);
 			$password = protect($_POST['password']);
 			$passconf = protect($_POST['passconf']);
 			$email = protect($_POST['email']);
  
 			//check to see if any of the boxes were not filled in
-			if(!$username || !$password || !$passconf || !$email){
+			if(!$fullname || !$username || !$password || !$passconf || !$email){
 				//if any weren't display the error message
 				echo "<center>You need to fill in all of the required fields!</center>";
 			}else{
@@ -97,7 +100,7 @@ include "functions.php";
 										$res2 = mysql_query("INSERT INTO `users` (`username`, `password`, `email`, `rtime`) VALUES('".$username."','".$password."','".$email."','".$registerTime."')");
  
 										//send the email with an email containing the activation link to the supplied email address
-										mail($email,' registration confirmation', "Thank you for registering " . $username . ",\n\nHere is your activation link. If the link doesn't work copy and paste it into your browser address bar.\n\nhttp://www.yourwebsitehere.co.uk/activate.php?code=".$code, 'From: boonsta@fullsail.edu');
+										mail($email,' registration confirmation', "Thank you for registering " . $fullname . ",\n\nHere is your activation link. If the link doesn't work copy and paste it into your browser address bar.\n\nhttp://www.yourwebsitehere.co.uk/activate.php?code=".$code, 'From: boonsta@fullsail.edu');
  
 										//display the success message
 										echo "<center>You have successfully registered, please visit your inbox to activate your account!</center>";
@@ -114,6 +117,10 @@ include "functions.php";
 		<div id="border">
 			<form action="register.php" method="post">
 				<table cellpadding="2" cellspacing="0" border="0">
+				    <tr>
+                        <td>Full Name: </td>
+                        <td><input type="text" name="fullname" /></td>
+                    </tr>
 					<tr>
 						<td>Username: </td>
 						<td><input type="text" name="username" /></td>
@@ -139,5 +146,6 @@ include "functions.php";
 				</table>
 			</form>
 		</div>
+		<?php include APPPATH."/views/welcome/footer.php"; ?>
 	</body>
 </html>

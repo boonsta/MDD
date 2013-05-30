@@ -79,6 +79,6 @@
             pageTracker._trackPageview();
         } catch(err) {}
     </script>
-
+<?php include APPPATH."/views/welcome/footer.php"; ?>
 </body>
 </html>

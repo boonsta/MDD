@@ -104,6 +104,7 @@ include "functions.php";
 				</table>
 			</div>
 		</form>
+		<?php include APPPATH."/views/welcome/footer.php"; ?>
 	</body>
 </html>
 <?
